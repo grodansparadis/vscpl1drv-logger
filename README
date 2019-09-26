@@ -2,7 +2,8 @@ This is a driver for a text based log
 
 WIN32
 =====
-If the driver is sselected for install during the installation it is installed in the system32 folder. 
+If the driver is selected for install during the installation it is
+installed in the system32 folder.
 
 
 LINUX/UNIX
@@ -20,5 +21,3 @@ to enable the driver
 "/usr/local/lib/canallogger.so" - The path to the driver.
 "64,64" - Is Driver input/output buffer size.
 "1" - Create a new file on every driver initialization. Set to 0 to just append if file already exists.
-
-

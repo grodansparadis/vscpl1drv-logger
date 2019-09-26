@@ -43,10 +43,13 @@ The log file have the following format and consist of the following parts
    * Databytes
 
 
-## Install the driver
+## Install the driver on Linux
+tbd
 
+## Install the driver on Windows
+tbd
 
-## How to build the driver
+## How to build the driver on Linux
 To build this driver you have to first install the vscp common code. You do this with
 
 ```bash
@@ -78,3 +81,6 @@ sudo apt install build-essential git
 ```
 
 if you don't.
+
+## How to build the driver on Windows
+tbd
