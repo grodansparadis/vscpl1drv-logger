@@ -13,7 +13,6 @@ rm -rf BUILD_UNIX~
 rm -rf BUILD_WIN32.txt~
 rm -f config.status
 
-
 echo Removing Work directories...
 rm -rf src/vscp/Build
 find . -type d -name Debug -print -exec rm -rf {} +;
@@ -78,4 +77,3 @@ rm -f 'src/vscp/drivers/level2/logger/linux/Makefile.orig'
 rm -f 'src/vscp/helperlib/linux/Makefile.orig'
 rm -rf autom4te.cache
 rm -f config.status
-
