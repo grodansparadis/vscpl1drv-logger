@@ -1,5 +1,5 @@
 #!/bin/sh
-# postrm script for vscp
+# postrm script for vscp-driver-l1-logger
 #
 # see: dh_installdeb(1)
 

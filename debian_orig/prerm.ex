@@ -1,5 +1,5 @@
 #!/bin/sh
-# prerm script for vscp
+# prerm script for vscp-driver-l1-logger
 #
 # see: dh_installdeb(1)
 

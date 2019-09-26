@@ -11,28 +11,28 @@ version=4
 
 # HTTP site (basic)
 #http://example.com/downloads.html \
-#  files/vscp-([\d\.]+)\.tar\.gz debian uupdate
+#  files/vscp-driver-l1-logger-([\d\.]+)\.tar\.gz debian uupdate
 
 # Uncomment to examine an FTP server
-#ftp://ftp.example.com/pub/vscp-(.*)\.tar\.gz debian uupdate
+#ftp://ftp.example.com/pub/vscp-driver-l1-logger-(.*)\.tar\.gz debian uupdate
 
 # SourceForge hosted projects
-# http://sf.net/vscp/ vscp-(.*)\.tar\.gz debian uupdate
+# http://sf.net/vscp-driver-l1-logger/ vscp-driver-l1-logger-(.*)\.tar\.gz debian uupdate
 
 # GitHub hosted projects
 #opts="filenamemangle=s%(?:.*?)?v?(\d[\d.]*)\.tar\.gz%<project>-$1.tar.gz%" \
-#   https://github.com/<user>/vscp/tags \
+#   https://github.com/<user>/vscp-driver-l1-logger/tags \
 #   (?:.*?/)?v?(\d[\d.]*)\.tar\.gz debian uupdate
 
 # PyPI
-# https://pypi.debian.net/vscp/vscp-(.+)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz)))
+# https://pypi.debian.net/vscp-driver-l1-logger/vscp-driver-l1-logger-(.+)\.(?:zip|tgz|tbz|txz|(?:tar\.(?:gz|bz2|xz)))
 
 # Direct Git
-# opts="mode=git" http://git.example.com/vscp.git \
+# opts="mode=git" http://git.example.com/vscp-driver-l1-logger.git \
 #   refs/tags/v([\d\.]+) debian uupdate
 
 
 
 
 # Uncomment to find new files on GooglePages
-# http://example.googlepages.com/foo.html vscp-(.*)\.tar\.gz
+# http://example.googlepages.com/foo.html vscp-driver-l1-logger-(.*)\.tar\.gz
