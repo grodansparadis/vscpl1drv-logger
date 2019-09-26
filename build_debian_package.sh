@@ -37,6 +37,8 @@ cd $NAME_PLUS_VER
 #debuild clean
 debuild -us -uc
 
+echo "If all is alright check /tmp/__BUILD__/ for Debian package "
+
 #cp -r vscp-driver-l1-logger /tmp/__build__/vscp-driver-l1-logger-${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_VERSION}
 #cd /tmp/__build__
 #tar czvf vscp-driver-l1-logger_${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_VERSION}.tar.gz vscp-driver-l1-logger_${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_VERSION}
