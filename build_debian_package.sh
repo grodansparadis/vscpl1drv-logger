@@ -34,6 +34,7 @@ cp -r ../debian_orig/* debian/
 echo "---Now do 'dpkg-buildpackage -us -uc' or 'dpkg-buildpackage -b'"
 
 cd $NAME_PLUS_VER
+#debuild clean
 debuild -us -uc
 
 #cp -r vscp-driver-l1-logger /tmp/__build__/vscp-driver-l1-logger-${MAJOR_VERSION}.${MINOR_VERSION}.${BUILD_VERSION}

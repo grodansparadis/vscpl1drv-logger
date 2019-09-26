@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Warning!
+# Do not run this script if you don't know what you do!
+
 # General common files
 cd _vscp_common_general
 rm -f *

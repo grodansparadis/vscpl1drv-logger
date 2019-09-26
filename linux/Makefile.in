@@ -71,8 +71,7 @@ dllist.o: ../_vscp_common_general/dllist.c ../_vscp_common_general/dllist.h
 	$(CC) $(CFLAGS) -c ../_vscp_common_general/dllist.c -o $@
 
 install: all
-	mkdir -p $(VSCP_PROJ_BASE_DIR)/drivers/level1
-	$(INSTALL_PROGRAM) vscpl1drv-logger.so $(VSCP_PROJ_BASE_DIR)/drivers/level1
+	$(INSTALL_PROGRAM) vscpl1drv-logger.so $(libdir)
 
 uninstall:
 
