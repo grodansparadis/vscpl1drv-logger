@@ -80,8 +80,8 @@ install-strip: install
 
 deb:    all
 	echo "\n" | ./builddist.sh
-	@mkdir -p ../../../../../../dist
-	@mv *.deb ../../../../../../dist
+	@mkdir -p ../dist
+	@mv *.deb ../dist
 
 clean:
 	rm -rf ./.deps ./.pch

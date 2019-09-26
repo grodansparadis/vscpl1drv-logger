@@ -4,10 +4,10 @@
 # sudo apt-get install build-essential automake autoconf libtool pkg-config libcurl4-openssl-dev intltool libxml2-dev libgtk2.0-dev libnotify-dev libglib2.0-dev libevent-dev checkinstall
 
 # get version from the version file
-MAJOR_VERSION=`sed '35!d' ../../../../common/version.h  | cut -b 33-`
-MINOR_VERSION=`sed '36!d' ../../../../common/version.h  | cut -b 33-`
-RELEASE_VERSION=`sed '37!d' ../../../../common/version.h  | cut -b 33-`
-BUILD_VERSION=`sed '38!d' ../../../../common/version.h  | cut -b 33-`
+MAJOR_VERSION=`sed '35!d' ${VSCP_PATH}src/vscp/common/version.h  | cut -b 33-`
+MINOR_VERSION=`sed '36!d' ${VSCP_PATH}/src/vscp/common/version.h  | cut -b 33-`
+RELEASE_VERSION=`sed '37!d' ${VSCP_PATH}/src/vscp/common/version.h  | cut -b 33-`
+BUILD_VERSION=`sed '38!d' ${VSCP_PATH}/src/vscp/common/version.h  | cut -b 33-`
 
 #Build debian
 checkinstall --type="debian" \
@@ -22,7 +22,7 @@ checkinstall --type="debian" \
 --addso=yes \
 --gzman=yes \
 --backup=no \
---pkgsource="https://github.com/grodansparadis/vscp" \
+--pkgsource="https://github.com/grodansparadis/vscp-driver-l1-logger" \
 --maintainer="akhe@grodansparadis.com" \
 --requires="libc6"
 

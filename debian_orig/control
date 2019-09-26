@@ -1,0 +1,17 @@
+Source: vscp-driver-l1-logger
+Section: misc
+Priority: optional
+Maintainer: Ake Hedman <akhe@grodansparadis.com>
+Build-Depends: debhelper (>= 10)
+Standards-Version: 4.1.2
+Homepage: https://www.vscp.org
+Vcs-Git: https://github.com/grodansparadis/vscp-driver-l1-logger.git
+Vcs-Browser: https://github.com/grodansparadis/vscp-driver-l1-logger
+
+Package: vscp-driver-l1-logger
+Architecture: any
+Depends: ${misc:Depends},libc6,libstdc++6,libgcc1
+Description: vscpd level I logger driver
+ This is a level I driver that can be used by the vscpd to log vscp
+ level 1 events. vscpd is a daemon for the VSCP & Friends m2m/IoT
+ package.
