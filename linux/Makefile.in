@@ -21,9 +21,9 @@ MINOR_VERSION = `sed '36!d' ${VSCP_PATH}/src/vscp/common/version.h  | cut -b 33-
 RELEASE_VERSION = `sed '37!d' ${VSCP_PATH}/src/vscp/common/version.h  | cut -b 33-`
 BUILD_VERSION = `sed '38!d' ${VSCP_PATH}/src/vscp/common/version.h  | cut -b 33-
 
-CFLAGS = @CFLAGS@ -fPIC -DCBC -I${VSCP_PATH}/src/common -I${VSCP_PATH}/src/vscp/common
+CFLAGS = @CFLAGS@ -fPIC -DCBC -I../_vscp_common_general -I../_vscp_common
 CXXFLAGS = -D__LINUX__ -fPIC -D_REENTRANT @CXXFLAGS@
-CPPFLAGS = -D__LINUX__ -fPIC @CPPFLAGS@ -fno-var-tracking-assignments -I${VSCP_PATH}/src/common -I${VSCP_PATH}/src/vscp/common
+CPPFLAGS = -D__LINUX__ -fPIC @CPPFLAGS@ -fno-var-tracking-assignments -I../_vscp_common_general -I../_vscp_common
 
 LDFLAGS = @LDFLAGS@
 EXTRALIBS = @EXTRALIBS@
@@ -64,11 +64,11 @@ vscpl1drv-logger.so: $(CANALLOGGER_OBJECTS)
 log.o: ../common/log.cpp ../common/log.h
 	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c ../common/log.cpp -o $@
 
-guid.o: ${VSCP_PATH}/src/vscp/common/guid.cpp ${VSCP_PATH}/src/vscp/common/guid.h
-	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c ${VSCP_PATH}/src/vscp/common/guid.cpp -o $@
+guid.o: ../_vscp_common/guid.cpp ../_vscp_common/guid.h
+	$(CXX) $(CXXFLAGS) $(CPPFLAGS) -c ../_vscp_common/guid.cpp -o $@
 
-dllist.o: ${VSCP_PATH}/src/common/dllist.c ${VSCP_PATH}/src/common/dllist.h
-	$(CC) $(CFLAGS) -c ${VSCP_PATH}/src/common/dllist.c -o $@
+dllist.o: ../_vscp_common_general/dllist.c ../_vscp_common_general/dllist.h
+	$(CC) $(CFLAGS) -c ../_vscp_common_general/dllist.c -o $@
 
 install: all
 	mkdir -p $(VSCP_PROJ_BASE_DIR)/drivers/level1
@@ -87,8 +87,8 @@ clean:
 	rm -rf ./.deps ./.pch
 	rm -f ./*.o
 	rm -f ../common/*.o
-	rm -f ${VSCP_PATH}/src/common/*.o
-	rm -f ${VSCP_PATH}/src/vscp/common/*.o
+	rm -f ../_vscp_common_general/*.o
+	rm -f ../_vscp_common/*.o
 	rm -f vscpl1drv-logger.so
 	rm -f test
 	rm -f *.gz

@@ -35,15 +35,6 @@ install-manpages:
 	$(INSTALL_PROGRAM) -b -m644 man/vscpdrivers.7 $(DESTDIR)/usr/share/man/man7/
 	mandb
 
-fetch_event_database:
-	echo "Fetching VSCP event database"
-	rm -f /tmp/vscp_data.sql
-	rm -f /tmp/vscp_data.sqlite3
-	curl -o/tmp/vscp_data.sql -LOk https://www.vscp.org/events/vscp_events.sql
-	cat /tmp/vscp_data.sql | sqlite3 /tmp/vscp_data.sqlite3
-	cp /tmp/vscp_data.sql database/
-	cp /tmp/vscp_events.sqlite3 database/
-
 clean:
 	@for d in $(PROJ_SUBDIRS); do (cd $$d && $(MAKE) clean); done
 	rm -f config.log
