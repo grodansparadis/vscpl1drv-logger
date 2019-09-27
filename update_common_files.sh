@@ -14,6 +14,7 @@ cd ..
 # VSCP Common files
 cd _vscp_common
 rm -f *
+wget https://raw.githubusercontent.com/grodansparadis/vscp/master/src/vscp/common/version.h
 wget https://raw.githubusercontent.com/grodansparadis/vscp/master/src/vscp/common/canal.h
 wget https://raw.githubusercontent.com/grodansparadis/vscp/master/src/vscp/common/canal_macro.h
 wget https://raw.githubusercontent.com/grodansparadis/vscp/master/src/vscp/common/vscp.h
