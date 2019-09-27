@@ -1,5 +1,5 @@
 # vscp_driver_l1_logger
-vscpd level I driver for diagnostic logging. It allows you to log CAN (VSCP Level I) traffic to a text file. Several drivers can be loaded with different output files and using different filter/masks.
+vscpd level I driver for diagnostic logging. It makes it possible to log (VSCP Level I events to a text file. Several drivers can be loaded logging data to different output files and using different filter/masks.
 
 **Available for:** Windows, Linux
 
@@ -9,9 +9,13 @@ vscpd level I driver for diagnostic logging. It allows you to log CAN (VSCP Leve
 
 ##### Windows
 
+path;filter;mask
+
     c:\logfile.log;0x0;0x0
 
 ##### Linux
+
+path;filter;mask
 
     /tmp/logfile;0x0;0x0
 
@@ -21,9 +25,9 @@ Note that the filter/mask looks at the CAN ID. If you work with VSCP look at for
 
 ## Flags
 
-   * 0 – Append data to an existing file (Create if not available).
-   * 1 – Create a new file or rewrite data on an old file.
-
+* 0 - Append data to an existing file (create it if it's not available).
+* 1 - Create a new file or rewrite an old file with new data.
+* 
 ## Status return
 
 The CanalGetStatus call returns the status structure with the channel_status member having the following meaning:
@@ -65,8 +69,8 @@ export VSCP_PATH=path-to-above-folder
 Now clone the driver source
 
 ```bash
-git clone https://github.com/grodansparadis/vscp-driver-l1-logger.git
-cd vscp-driver-l1-logger
+git clone https://github.com/grodansparadis/vscpl1drv-logger.git
+cd vscpl1drv-logger
 ./configure
 make
 make install

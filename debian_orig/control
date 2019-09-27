@@ -1,14 +1,14 @@
-Source: vscp-driver-l1-logger
+Source: vscpl1drv-logger
 Section: utils
 Priority: optional
 Maintainer: Ake Hedman <akhe@grodansparadis.com>
 Build-Depends: debhelper (>= 11), autotools-dev
 Standards-Version: 4.1.3
 Homepage: https://www.vscp.org
-Vcs-Browser: https://github.com/grodansparadis/vscp-driver-l1-logger
-Vcs-Git: https://github.com/grodansparadis/vscp-driver-l1-logger.git
+Vcs-Browser: https://github.com/grodansparadis/vscpl1drv-logger
+Vcs-Git: https://github.com/grodansparadis/vscpl1drv-logger.git
 
-Package: vscp-driver-l1-logger
+Package: vscpl1drv-logger
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libc6-dev
 Description: Level I logger driver for the VSCP daemon

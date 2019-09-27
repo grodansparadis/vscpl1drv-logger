@@ -22,7 +22,7 @@ checkinstall --type="debian" \
 --addso=yes \
 --gzman=yes \
 --backup=no \
---pkgsource="https://github.com/grodansparadis/vscp-driver-l1-logger" \
+--pkgsource="https://github.com/grodansparadis/vscpl1drv-logger" \
 --maintainer="akhe@grodansparadis.com" \
 --requires="libc6"
 

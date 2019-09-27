@@ -1,6 +1,6 @@
 #!/bin/bash
 
 pandoc -s -t man vscpl1drv-logger.7.md -o vscpl1drv-logger.7
-sudo cp vscpl1drv-logger.7 /usr/share/man/man8/
+sudo cp vscpl1drv-logger.7 /usr/share/man/man7/
 
 mandb

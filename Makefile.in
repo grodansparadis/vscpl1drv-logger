@@ -1,5 +1,5 @@
 #
-# Makefile : Builds vscp-driver-l1-logger for Unix.
+# Makefile : Builds vscpl1drv-logger for Unix.
 #
 
 INSTALL = @INSTALL@

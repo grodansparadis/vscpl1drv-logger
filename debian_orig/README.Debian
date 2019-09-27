@@ -1,5 +1,5 @@
-vscp-driver-l1-logger for Debian
--------------------------------
+vscpl1drv-logger for Debian
+---------------------------
 
 This is a logger driver for the VSCP daemon.
 
