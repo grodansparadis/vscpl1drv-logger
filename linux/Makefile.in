@@ -16,10 +16,10 @@ CC = @CC@
 CXX = @CXX@
 
 # get version from the version file
-MAJOR_VERSION = `sed '35!d' ${VSCP_PATH}/src/vscp/common/version.h  | cut -b 33-`
-MINOR_VERSION = `sed '36!d' ${VSCP_PATH}/src/vscp/common/version.h  | cut -b 33-`
-RELEASE_VERSION = `sed '37!d' ${VSCP_PATH}/src/vscp/common/version.h  | cut -b 33-`
-BUILD_VERSION = `sed '38!d' ${VSCP_PATH}/src/vscp/common/version.h  | cut -b 33-
+MAJOR_VERSION = `sed '35!d' ../_vscp_common/version.h  | cut -b 33-`
+MINOR_VERSION = `sed '36!d' ../_vscp_common/version.h  | cut -b 33-`
+RELEASE_VERSION = `sed '37!d' ../_vscp_common/version.h  | cut -b 33-`
+BUILD_VERSION = `sed '38!d' ../_vscp_common/version.h  | cut -b 33-
 
 CFLAGS = @CFLAGS@ -fPIC -DCBC -I../_vscp_common_general -I../_vscp_common
 CXXFLAGS = -D__LINUX__ -fPIC -D_REENTRANT @CXXFLAGS@
