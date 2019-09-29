@@ -12,7 +12,7 @@ vscpl1drv-logger
 
 # DESCRIPTION
 
-vscpd level I driver for diagnostic logging. It makes it possible to log (VSCP Level I events to a text file. Several drivers can be loaded logging data to different output files and using different filter/masks.
+VSCP level I driver (CANAL driver) for diagnostic logging. It makes it possible to log (VSCP Level I events to a text file. Several drivers can be loaded logging data to different output files and using different filter/masks.
 
 ## Configuration string
 
@@ -44,7 +44,7 @@ The log file have the following format and consist of the following parts
 * Number of databytes
 * Databytes
 
-There are many Level I drivers available in VSCP & Friends framework that can be used with both VSCP Works and the VSCP Daemon and added to that Level II and Level III drivers that can be used with the VSCP Daemon.
+There are many Level I drivers (CANAL drivers) available in VSCP & Friends framework that can be used with both VSCP Works and the VSCP Daemon (vscpd) and other tools that interface the drivers using the CANAL standard interface. Added to that many Level II and Level III drivers are available that can be used with the VSCP Daemon.
 
 Level I drivers is documented [here](https://grodansparadis.gitbooks.io/the-vscp-daemon/level_i_drivers.html).
 
