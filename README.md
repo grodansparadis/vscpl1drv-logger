@@ -1,4 +1,7 @@
 # vscp_driver_l1_logger
+
+<img src="https://vscp.org/images/logo.png" width="100">
+
 vscpd level I driver for diagnostic logging. It makes it possible to log (VSCP Level I events to a text file. Several drivers can be loaded logging data to different output files and using different filter/masks.
 
 **Available for:** Windows, Linux
@@ -27,7 +30,7 @@ Note that the filter/mask looks at the CAN ID. If you work with VSCP look at for
 
 * 0 - Append data to an existing file (create it if it's not available).
 * 1 - Create a new file or rewrite an old file with new data.
-* 
+*
 ## Status return
 
 The CanalGetStatus call returns the status structure with the channel_status member having the following meaning:
