@@ -1,4 +1,4 @@
-# vscp_driver_l1_logger
+# vscpl1drv-logger
 
 <img src="https://vscp.org/images/logo.png" width="100">
 
@@ -6,7 +6,10 @@ vscpd level I driver for diagnostic logging. It makes it possible to log (VSCP L
 
 **Available for:** Windows, Linux
 
-**Driver for Windows** vscpl1_loggerdrv.dll (vscpl1_loggerdrv.lib)
+**Driver for Linux**
+vscpl1drv-logger.so (vscpl1drv-logger.lib)
+
+**Driver for Windows** vscpl1drv-logger.dll (vscpl1drv-logger.lib)
 
 ## Parameter String
 
