@@ -83,14 +83,13 @@ make install
 ```
 Default install folder is **/usr/lib**
 
-You need build-essentials and git installed on your system
+You need *build-essentials* and *git* installed on your system
 
 ```bash
 sudo apt update && sudo apt -y upgrade
 sudo apt install build-essential git
 ```
 
-if you don't.
 
 ## How to build the driver on Windows
 tbd

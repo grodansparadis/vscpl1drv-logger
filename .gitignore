@@ -60,4 +60,7 @@ config.log
 config.status
 *.h.in~
 *.deb
-dist/
+
+# dist
+dist/*
+
