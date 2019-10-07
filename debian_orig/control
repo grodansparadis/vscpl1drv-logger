@@ -11,6 +11,7 @@ Vcs-Git: https://github.com/grodansparadis/vscpl1drv-logger.git
 Package: vscpl1drv-logger
 Architecture: any
 Depends: ${shlibs:Depends}, ${misc:Depends}, libc6-dev
-Description: Level I logger driver for the VSCP daemon
- A driver that can be added to the VSCP server to get logging of level I
- events on a specific file. Filters can be set.
+Description: Level I logger driver for VSCP & friends
+ This level I driver that can be added to the VSCP daemon/VSCP Works,
+ or other tool that can use VSCP Level I drivers, to get logging of
+ level I events on a specific file. Filters can be set.
