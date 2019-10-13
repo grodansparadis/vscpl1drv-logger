@@ -58,10 +58,10 @@ all: vscpl1drv-logger.so test lib
 
 # static lib
 lib:	vscpl1drv-logger.so
-	ar rcs libvscpl1drv-logger.a vscpl1drv-logger.o
+	ar rcs libvscpl1drv-logger.a $(CANALLOGGER_OBJECTS)
 
-test:  test.o $(PROJOBJS)
-	$(CXX) -o $@ test.o $(PROJOBJS) $(LDFLAGS) -L$(LIBDIRNAME) @LIBS@ $(EXTRALIBS)
+test:  test.o $(CANALLOGGER_OBJECTS)
+	$(CXX) -o $@ test.o $(CANALLOGGER_OBJECTS) $(LDFLAGS) -L$(LIBDIRNAME) @LIBS@ $(EXTRALIBS)
 
 vscpl1drv-logger.so: $(CANALLOGGER_OBJECTS)
 	$(CXX) -o $@ $(CANALLOGGER_OBJECTS) $(DLFLAGS) -L$(LIBDIRNAME) @LIBS@ $(EXTRALIBS)
