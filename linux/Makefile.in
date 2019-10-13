@@ -80,7 +80,7 @@ install: all
 	$(INSTALL_DIR) $(VSCP_PROJ_BASE_DIR)/drivers/level1/
 	$(INSTALL_PROGRAM) vscpl1drv-logger..so $(VSCP_PROJ_BASE_DIR)/drivers/level1/
 
-uninstall:
+uninstall: all
 	rm -rf $(VSCP_PROJ_BASE_DIR)/drivers/level1/vscpl1drv-logger.so
 
 install-strip: install
