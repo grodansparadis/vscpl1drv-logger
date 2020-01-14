@@ -68,7 +68,6 @@ LIB_SONAME = "vscpl1drv-logger.so.$(MAJOR_VERSION)"
 
 ### Variables: ###
 
-
 CANALLOGGER_OBJECTS =  vscpl1drv-logger.o\
 	log.o\
 	dllist.o
@@ -125,7 +124,8 @@ clean:
 	rm -f ../common/*.o
 	rm -f ../vscp/src/common/*.o
 	rm -f ../vscp/src/vscp/common/*.o
-	rm -f vscpl1drv-logger.so
+	rm -f $(LIB_PLUS_VER)
+	rm -f libvscpl1drv-logger.a
 	rm -f test
 	rm -f *.gz
 	rm -f *.deb

@@ -14,7 +14,7 @@ rm -rf ../dist/*
 
 # Debian compability 10 on Raspberry
 # relevant for 'control' and 'compat'
-COMPAT="12"
+COMPAT="10"
 
 # makes correct /usr/lib subfolder (/usr/lib/x86_64-linux-gnu/), none on Raspberry
 # relevant for 'install' and 'links'

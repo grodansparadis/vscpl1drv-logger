@@ -1,1 +1,2 @@
 linux/vscpl1drv-logger.so.%MAJOR-VERSION.%MINOR-VERSION.%RELEASE-VERSION /usr/lib/%SUBFOLDER/
+linux/libvscpl1drv-logger.a /usr/lib/%SUBFOLDER/
