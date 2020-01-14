@@ -9,7 +9,7 @@ AC_INIT( [vscpl1drv-logger], [package_version], [akhe@grodansparadis.com])
 AC_CONFIG_MACRO_DIR(m4)
 
 AC_PREREQ(2.57)
-AC_CONFIG_SRCDIR([common/log.cpp])
+AC_CONFIG_SRCDIR([linux/vscpl1drv-logger.cpp])
 AC_CONFIG_AUX_DIR(autotools)
 AC_CONFIG_HEADERS([config.h])
 
@@ -96,11 +96,15 @@ else
 STATIC="no"
 fi
 
+dnl
+dnl Project base installation folder
+dnl
+
 AC_ARG_VAR(DESTDIR, Set base folder for installation (/srv/vscp) )
 if test "${DESTDIR+set}" = set; then
   echo "variable \$DESTDIR is set to: $DESTDIR"
 else
-  DESTDIR="/srv/vscp/"
+  DESTDIR="/var/lib/vscp"
   echo "variable \$DESTDIR is set to: $DESTDIR"
 fi
 
@@ -109,7 +113,6 @@ dnl Project Sub directories
 dnl
 
 PROJ_SUBDIRS="linux "
-
 AC_SUBST(PROJ_SUBDIRS)
 
 dnl

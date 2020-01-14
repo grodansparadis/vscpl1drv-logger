@@ -8,7 +8,7 @@
 // 
 // This file is part of the VSCP (http://www.vscp.org) 
 //
-// Copyright (C) 2000-2019 Ake Hedman, 
+// Copyright (c) 2000-2020 Åke Hedman, 
 // Grodans Paradis AB, <akhe@grodansparadis.com>
 // 
 // This file is distributed in the hope that it will be useful,
@@ -32,7 +32,7 @@
 #define DLL_VERSION		1
 
 // This is the vendor string - Change to your own value
-#define CANAL_DLL_VENDOR "eurosource, Sweden, https://www.eurosource.se"
+#define CANAL_DLL_VENDOR "Grodans Paradis AB, Sweden, https://www.grodansparadis.com"
 
 // Max number of open connections
 #define CANAL_LOGGER_DRIVER_MAX_OPEN	256
