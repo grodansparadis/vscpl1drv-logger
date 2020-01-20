@@ -1,6 +1,6 @@
 % VSCPL1DRV-LOGGER(7) VSCP Level I Logger Driver
 % Åke Hedman, Grodans Paradis AB
-% September 27, 2019
+% Mon, 20 Jan 2020
 
 # NAME
 
@@ -68,4 +68,4 @@ The [manual](https://grodansparadis.gitbooks.io/the-vscp-daemon) for vscpd conta
 The vscpd source code may be downloaded from <https://github.com/grodansparadis/vscp>. Source code for other system components of VSCP & Friends are here <https://github.com/grodansparadis>
 
 # COPYRIGHT
-Copyright 2000-2019 Åke Hedman, Grodans Paradis AB - MIT license.
+Copyright 2000-2020 Åke Hedman, Grodans Paradis AB - MIT license.

@@ -10,6 +10,7 @@ RELEASE_DEBIAN=`head -n4  VERSION.m4 |  grep release_debian | tr -d "m4_define[r
 NAME_PLUS_VER="vscpl1drv-logger-$MAJOR_VERSION.$MINOR_VERSION.$RELEASE_VERSION"
 #BUILD_FOLDER="dist/`date +vscp_build_%y%m%d_%H%M%S`"
 BUILD_FOLDER="../dist"
+DATENOW="`date -R`"
 rm -rf ../dist/*
 
 # Debian compability 10 on Raspberry
@@ -152,6 +153,7 @@ sed -i "s/%BUILD-VERSION/${BUILD_VERSION}/g" debian/*
 sed -i "s/%RELEASE-DEBIAN/${RELEASE_DEBIAN}/g" debian/*
 sed -i "s/%COMPAT/${COMPAT}/g" debian/*
 sed -i "s/%SUBFOLDER/${SUBFOLDER}/g" debian/*
+sed -i "s/%DATENOW/${DATENOW}/g" debian/*
 
 echo "***   ---Now do 'dpkg-buildpackage -us -uc' or 'dpkg-buildpackage -b'"
 
