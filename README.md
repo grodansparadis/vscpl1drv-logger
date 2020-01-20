@@ -93,3 +93,6 @@ sudo apt install build-essential git
 
 ## How to build the driver on Windows
 tbd
+
+
+Copyright (C) 2000-2020 Ake Hedman, Grodans Paradis AB - MIT license.
