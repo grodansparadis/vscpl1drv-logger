@@ -233,7 +233,7 @@ extern "C" int CanalClose(long handle) {
     if (NULL == pLog) return 0;
     pLog->close();
     theApp.removeDriverObject(handle);
-    rv = 1;
+    rv = 0;
     return rv;
 }
 
