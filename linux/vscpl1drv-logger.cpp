@@ -227,14 +227,11 @@ extern "C" long CanalOpen(const char *pDevice, unsigned long flags) {
 
 extern "C" int CanalClose(long handle) {
     
-    int rv = 0;
-
     CLog *pLog = theApp.getDriverObject(handle);
     if (NULL == pLog) return 0;
     pLog->close();
     theApp.removeDriverObject(handle);
-    rv = 0;
-    return rv;
+    return CANAL_ERROR_SUCCESS;
 }
 
 
@@ -253,8 +250,8 @@ extern "C" unsigned long CanalGetLevel(long handle) {
 
 extern "C" int CanalSend(long handle, PCANALMSG pCanalMsg) {
     CLog *pLog = theApp.getDriverObject(handle);
-    if (NULL == pLog) return 0;
-    return pLog->writeMsg(pCanalMsg);
+    if (NULL == pLog) return CANAL_ERROR_INTERNAL;
+    return pLog->writeMsg(pCanalMsg) ? CANAL_ERROR_SUCCESS : CANAL_ERROR_GENERIC;
 }
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -262,7 +259,7 @@ extern "C" int CanalSend(long handle, PCANALMSG pCanalMsg) {
 //
 
 extern "C" int CanalReceive(long handle, PCANALMSG pCanalMsg) {
-    int rv = 0;
+    int rv = CANAL_ERROR_SUCCESS;
 
     // Nothing to receive from this DLL
     return rv;
@@ -273,7 +270,7 @@ extern "C" int CanalReceive(long handle, PCANALMSG pCanalMsg) {
 //
 
 extern "C" int CanalDataAvailable(long handle) {
-    int rv = 0;
+    int rv = CANAL_ERROR_SUCCESS;
 
     // No data available from this DLL
     return rv;
@@ -284,7 +281,7 @@ extern "C" int CanalDataAvailable(long handle) {
 //
 
 extern "C" int CanalGetStatus(long handle, PCANALSTATUS pCanalStatus) {
-    int rv = 0;
+    int rv = CANAL_ERROR_SUCCESS;
 
     return rv;
 }
@@ -294,7 +291,7 @@ extern "C" int CanalGetStatus(long handle, PCANALSTATUS pCanalStatus) {
 //
 
 extern "C" int CanalGetStatistics(long handle, PCANALSTATISTICS pCanalStatistics) {
-    int rv = 0;
+    int rv = CANAL_ERROR_SUCCESS;
 
     return rv;
 }
@@ -304,9 +301,9 @@ extern "C" int CanalGetStatistics(long handle, PCANALSTATISTICS pCanalStatistics
 //
 
 extern "C" int CanalSetFilter(long handle, unsigned long filter) {
-    int rv = 0;
+    int rv = CANAL_ERROR_SUCCESS;
     CLog *pLog = theApp.getDriverObject(handle);
-    if (NULL == pLog) return 0;
+    if (NULL == pLog) return CANAL_ERROR_INTERNAL;
     pLog->setFilter(filter);
     return rv;
 }
@@ -316,9 +313,9 @@ extern "C" int CanalSetFilter(long handle, unsigned long filter) {
 //
 
 extern "C" int CanalSetMask(long handle, unsigned long mask) {
-    int rv = 0;
+    int rv = CANAL_ERROR_SUCCESS;
     CLog *pLog = theApp.getDriverObject(handle);
-    if (NULL == pLog) return 0;
+    if (NULL == pLog) return CANAL_ERROR_INTERNAL;
     pLog->setMask(mask);
     return rv;
 }
@@ -328,7 +325,7 @@ extern "C" int CanalSetMask(long handle, unsigned long mask) {
 //
 
 extern "C" int CanalSetBaudrate(long handle, unsigned long baudrate) {
-    int rv = 0;
+    int rv = CANAL_ERROR_SUCCESS;
 
     // Not supported in this DLL
     return rv;
