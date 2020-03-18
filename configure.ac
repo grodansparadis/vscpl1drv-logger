@@ -97,6 +97,25 @@ STATIC="no"
 fi
 
 dnl
+dnl ASAN 
+dnl
+
+AC_ARG_ENABLE(asan,
+   AS_HELP_STRING([--enable-asan], [--enable-asan to build with AddressSanitizer https://github.com/google/sanitizers/wiki/AddressSanitizer (default disabled]))
+
+AS_IF([test "x$enable_asan" == "xyes"], [
+  CFLAGS+=" -fsanitize=address"
+  CPPFLAGS+=" -fsanitize=address"
+  CXXFLAGS+=" -fsanitize=address"
+  LDFLAGS+=" -fsanitize=address"
+])
+
+
+AS_IF([test "x$enable_asan" = "xyes"], 
+   [echo   "asan enabled          : yes"],
+   [echo   "asan enabled          : no" ])
+
+dnl
 dnl Project base installation folder
 dnl
 
@@ -144,6 +163,9 @@ then
 else
    echo "build flavour    : release "
 fi
+AS_IF([test "x$enable_asan" = "xyes"], 
+   [echo   "asan enabled     : yes"],
+   [echo   "asan enabled     : no" ])
 
 dnl Output some debugging information
 echo   "LIBS             : ${LIBS}"
@@ -152,5 +174,9 @@ echo   "EXTRACPPFLAGS    : ${CPPFLAGS}"
 echo   "EXTRACXXFLAGS    : ${CXXFLAGS}"
 echo   "EXTRACFLAGS      : ${CFLAGS}"
 echo   "PROJ_SUBDIRS     : ${PROJ_SUBDIRS}"
+
+echo
+echo "use --enable-debug to build a debug version; release is default."
+echo "use --enable-asan to build with AddressSanitizer https://github.com/google/sanitizers/wiki/AddressSanitizer"
 
 dnl vi: set et sts=4 sw=4 com=\:dnl

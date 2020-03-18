@@ -132,7 +132,7 @@ void CLog::setMask( unsigned long mask )
 //
 // flags
 //		bit 1 = 0 Append
-//      bit 1 = 1 Rewrite
+//      	bit 1 = 1 Rewrite
 //
 
 bool CLog::open( const char *szfile, unsigned long flags )
