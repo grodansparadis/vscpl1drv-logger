@@ -406,7 +406,7 @@ void *workThread( void *pObject )
 
 		LOCK_MUTEX( pobj->m_logMutex );
 
-		// Noting to do if we should end...
+		// Nothing to do if we should end...
 		if ( !pobj->m_bRun ) continue;
 
 		// Is there something to transmit
