@@ -102,7 +102,7 @@ install: all
 	ln -fs $(libdir)/$(LIB_PLUS_VER) $(DESTDIR)$(libdir)/vscpl1drv-logger.so
 	ln -fs $(libdir)/$(LIB_PLUS_VER) $(DESTDIR)$(libdir)/vscpl1drv-logger.so.$(MAJOR_VERSION)
 	ln -fs $(libdir)/$(LIB_PLUS_VER) $(DESTDIR)$(libdir)/vscpl1drv-logger.so.$(MAJOR_VERSION).$(MINOR_VERSION)
-	$(INSTALL_PROGRAM) vscpl2drv-logger.a $(DESTDIR)$(libdir)
+	$(INSTALL_PROGRAM) libvscpl1drv-logger.a $(DESTDIR)$(libdir)
 
 uninstall: all
 	rm -rf $(VSCP_PROJ_BASE_DIR)/drivers/level1/vscpl1drv-logger.so
