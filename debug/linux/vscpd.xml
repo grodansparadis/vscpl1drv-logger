@@ -27,15 +27,15 @@
             vscpkey="A4A86F7D7E119BA3F0CD06881E371B989B33B6D606A863B633EF529D64544F8E"
         />
 
-        <logging  debugflags0="0"
-                debugflags1="0"
-                debugflags2="0"
-                debugflags3="0"
-                debugflags4="0"
-                debugflags5="0"
-                debugflags6="0"
-                debugflags7="0"
-                debugflags8="0" />
+        <logging  debugflags0="0xffffffff"
+                  debugflags1="0xffffffff"
+                  debugflags2="0xffffffff"
+                  debugflags3="0xffffffff"
+                  debugflags4="0xffffffff"
+                  debugflags5="0xffffffff"
+                  debugflags6="0xffffffff"
+                  debugflags7="0xffffffff"
+                  debugflags8="0xffffffff" />
 
         <!-- The user to run as on Unix -->
         <runasuser></runasuser>
@@ -170,52 +170,13 @@
     <level1driver enable="true" >
 
         <!-- The canallog driver -->
-        <driver enable="false">
-            <name>logger</name>
-            <config>/tmp/canallog.txt</config>
-            <path>/srv/vscp/drivers/level1/vscpl1drv-logger.so</path>
-            <flags>1</flags>
-            <guid>00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00</guid>
-        </driver>
-
-        <!-- The can4vscp driver -->
-        <driver enable="false" >
-            <name>can4vscp</name>
-            <config>/dev/ttyS0</config>
-            <path>/srv/vscp/drivers/level1/vscpl1drv-logger.so</path>
-            <guid>00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00</guid>
-            <flags>0</flags>
-        </driver>
-
-        <!--
-            The Level I socketcan driver (You may concider using the
-            Level II version instead)
-        -->
-        <driver enable="false" >
-            <name>socketcanl1</name>
-            <config>vcan0</config>
-            <path>/srv/vscp/drivers/level1/vscpl1drv-socketcan.so</path>
-            <guid>00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00</guid>
-            <flags>0</flags>
-        </driver>
-
-        <!-- The can232 driver -->
-        <driver enable="false" >
-            <name>can232</name>
-            <config>/dev/ttyS0;19200;0;0;125</config>
-            <path>/srv/vscp/drivers/level1/vscpl1drv-can232.so</path>
-            <guid>00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00</guid>
-            <flags>0</flags>
-        </driver>
-
-        <!-- The xap driver -->
-        <driver enable="false" >
-            <name>xap</name>
-            <config>9598;3639</config>
-            <path>/srv/vscp/drivers/level1/vscpl1drv-xap.so</path>
-            <flags>0</flags>
-            <guid>00:00:00:00:00:00:00:00:00:00:00:00:00:00:00:00</guid>
-        </driver>
+        <driver enable="true"
+            name="logger|"
+            config="/tmp/canallog.txt"
+            path="/home/akhe/development/VSCP/vscpl1drv-logger/linux/vscpl1drv-logger.so.1.1.0"
+            flags="1"
+            guid="11:22:33:44:55:66:77:88:99:AA:BB:CC:DD:EE:00:00"
+        />
 
     </level1driver>
 
@@ -223,7 +184,7 @@
     <level2driver enable="true">
 
         <!-- Level II MQTT -->
-        <driver enable="true"
+        <driver enable="false"
             name = "VSCP Level II MQTT Driver"
             path-driver="/home/akhe/development/VSCP/vscpl1drv-logger/linux/vscpl1drv-logger.so.1.1.0"
             path-config="/home/akhe/development/VSCP/vscpl1drv-logger/debug/conf_standard.xml"
