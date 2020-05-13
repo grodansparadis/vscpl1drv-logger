@@ -129,8 +129,8 @@ Install using the binary install file in the release section.
 ## How to build the driver on Linux
 
 ```bash
-git clone https://github.com/grodansparadis/vscpl1drv-can4vscp.git
-cd vscpl1drv-can4vscp
+git clone https://github.com/grodansparadis/vscpl1drv-logger.git
+cd vscpl1drv-logger
 git submodule update --init
 ./configure
 make
