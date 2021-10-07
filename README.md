@@ -132,6 +132,7 @@ Install using the binary install file in the release section.
 git clone https://github.com/grodansparadis/vscpl1drv-logger.git
 cd vscpl1drv-logger
 git submodule update --init
+autoreconf
 ./configure
 make
 make install
