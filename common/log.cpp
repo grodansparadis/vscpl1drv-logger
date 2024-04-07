@@ -7,7 +7,7 @@
 //
 // This file is part of the VSCP (http://www.vscp.org)
 //
-// Copyright (c) 2000-2020 Åke Hedman,
+// Copyright (c) 2000-2024 Åke Hedman,
 // Ake Hedman, Grodans Paradis AB, <akhe@grodansparadis.com>
 //
 // This file is distributed in the hope that it will be useful,
@@ -27,9 +27,9 @@
 
 #else
 
-#include "unistd.h"
-#include "stdlib.h"
 #include "limits.h"
+#include "stdlib.h"
+#include "unistd.h"
 
 #endif
 
@@ -37,9 +37,9 @@
 
 // Prototypes
 #ifdef WIN32
-void workThread( void *pObject );
+void workThread(void *pObject);
 #else
-void *workThread( void *pObject );
+void *workThread(void *pObject);
 #endif
 
 //////////////////////////////////////////////////////////////////////
@@ -50,327 +50,295 @@ void *workThread( void *pObject );
 // CLog
 //
 
-CLog::CLog()
-{
-	// No filter mask
-	m_filter = 0;
-	m_mask = 0;
+CLog::CLog() {
+  // No filter mask
+  m_filter = 0;
+  m_mask = 0;
 
-	m_bRun = true;
+  m_bRun = true;
 #ifdef WIN32
-	m_hTread = 0;
+  m_hTread = 0;
 #else
-	m_flog = NULL;
+  m_flog = NULL;
 #endif
-	dll_init( &m_logList, SORT_NONE );
+  dll_init(&m_logList, SORT_NONE);
 }
 
 //////////////////////////////////////////////////////////////////////
 // ~CLog
 //
 
-CLog::~CLog()
-{
-	dll_removeAllNodes( &m_logList );
-	close();
+CLog::~CLog() {
+  dll_removeAllNodes(&m_logList);
+  close();
 }
-
 
 //////////////////////////////////////////////////////////////////////
 // doFilter
 //
 
-bool CLog::doFilter( canalMsg *pcanalMsg )
-{
-	unsigned long msgid = ( pcanalMsg->id & 0x1fffffff);
-	if ( !m_mask ) return true;	// fast escape
+bool CLog::doFilter(canalMsg *pcanalMsg) {
+  unsigned long msgid = (pcanalMsg->id & 0x1fffffff);
+  if (!m_mask)
+    return true; // fast escape
 
-	// Set bit 31 if extended message
-	if ( pcanalMsg->flags | CANAL_IDFLAG_EXTENDED ) {
-		msgid &= 0x1fffffff;
-		msgid |= 80000000;
-	}
-	else {
-		// Standard message
-		msgid &= 0x000007ff;
-	}
+  // Set bit 31 if extended message
+  if (pcanalMsg->flags | CANAL_IDFLAG_EXTENDED) {
+    msgid &= 0x1fffffff;
+    msgid |= 80000000;
+  } else {
+    // Standard message
+    msgid &= 0x000007ff;
+  }
 
-	// Set bit 30 if RTR
-	if ( pcanalMsg->flags | CANAL_IDFLAG_RTR ) {
-		msgid |= 40000000;
-	}
+  // Set bit 30 if RTR
+  if (pcanalMsg->flags | CANAL_IDFLAG_RTR) {
+    msgid |= 40000000;
+  }
 
-	return !( ( m_filter ^ msgid ) & m_mask );
+  return !((m_filter ^ msgid) & m_mask);
 }
 
 //////////////////////////////////////////////////////////////////////
 // setFilter
 //
 
-void CLog::setFilter( unsigned long filter )
-{
-	m_filter = filter;
-}
-
+void CLog::setFilter(unsigned long filter) { m_filter = filter; }
 
 //////////////////////////////////////////////////////////////////////
 // setMask
 //
 
-void CLog::setMask( unsigned long mask )
-{
-	m_mask = mask;
-}
-
-
+void CLog::setMask(unsigned long mask) { m_mask = mask; }
 
 //////////////////////////////////////////////////////////////////////
 // open
 //
 // filename
-//		the name of the log file
+//    the name of the log file
 //
 // flags
-//		bit 1 = 0 Append
-//      	bit 1 = 1 Rewrite
+//    bit 1 = 0 Append
+//    bit 1 = 1 Rewrite
 //
 
-bool CLog::open( const char *szfile, unsigned long flags )
-{
-	char *p;
-	bool rv = false;
+bool CLog::open(const char *szfile, unsigned long flags) {
+  char *p;
+  bool rv = false;
 
 #ifdef WIN32
-  char szRWFile[ MAX_PATH ];
-	char szFile[ MAX_PATH ];
+  char szRWFile[MAX_PATH];
+  char szFile[MAX_PATH];
 
 #else
-  char szRWFile[ PATH_MAX ];
-	char szFile[ PATH_MAX ];
+  char szRWFile[PATH_MAX];
+  char szFile[PATH_MAX];
 #endif
 
-  if ( NULL != szfile ) {
+  if (NULL != szfile) {
 #ifdef WIN32
-    strncpy( szRWFile, szfile, MAX_PATH );
+    strncpy(szRWFile, szfile, MAX_PATH);
 #else
-    strncpy( szRWFile, szfile, PATH_MAX );
+    strncpy(szRWFile, szfile, PATH_MAX);
 #endif
   }
 
-	// Get filename
-	p = strtok( szRWFile, ";" );
-	if ( NULL == p ) return false;
+  // Get filename
+  p = strtok(szRWFile, ";");
+  if (NULL == p)
+    return false;
 
 #ifdef WIN32
-	strncpy( szFile, p, MAX_PATH );
+  strncpy(szFile, p, MAX_PATH);
 #else
-	strncpy( szFile, p, PATH_MAX );
+  strncpy(szFile, p, PATH_MAX);
 #endif
 
-	// Get filter
-	p = strtok( NULL, ";" );
-	if ( NULL != p ) m_filter = getDataValue( p );
+  // Get filter
+  p = strtok(NULL, ";");
+  if (NULL != p)
+    m_filter = getDataValue(p);
 
-	// Get mask
-        p = strtok( NULL, ";" );
-	if ( NULL != p ) m_mask = getDataValue( p );
-
+  // Get mask
+  p = strtok(NULL, ";");
+  if (NULL != p)
+    m_mask = getDataValue(p);
 
 #ifdef WIN32
 
-	m_logMutex = CreateMutex( NULL, true, CANAL_DLL_LOGGER_OBJ_MUTEX );
+  m_logMutex = CreateMutex(NULL, true, CANAL_DLL_LOGGER_OBJ_MUTEX);
 
-	if ( flags & 1 ) {
+  if (flags & 1) {
 
-		// Rewrite
-		if ( NULL != ( m_flog = fopen( szFile, "w" ) ) ) {
-			rv = true;
-		}
-	}
-	else {
-		// Append
-		if ( NULL != ( m_flog = fopen( szFile, "a" ) ) ) {
-			rv = true;
-		}
-	}
+    // Rewrite
+    if (NULL != (m_flog = fopen(szFile, "w"))) {
+      rv = true;
+    }
+  } else {
+    // Append
+    if (NULL != (m_flog = fopen(szFile, "a"))) {
+      rv = true;
+    }
+  }
 
-	// Start write thread
-	if ( rv ) {
+  // Start write thread
+  if (rv) {
 
-		// Create the log write thread.
-		DWORD dwThreadId;
-		if ( NULL ==
-				( m_hTread = CreateThread(	NULL,
-											0,
-											(LPTHREAD_START_ROUTINE) workThread,
-											this,
-											0,
-											&dwThreadId ) ) ) {
-			// Failure
-			rv = false;
-			close();
-		}
-	}
+    // Create the log write thread.
+    DWORD dwThreadId;
+    if (NULL ==
+        (m_hTread = CreateThread(NULL, 0, (LPTHREAD_START_ROUTINE)workThread,
+                                 this, 0, &dwThreadId))) {
+      // Failure
+      rv = false;
+      close();
+    }
+  }
 
-	// Release the mutex
-	ReleaseMutex( m_logMutex );
+  // Release the mutex
+  ReleaseMutex(m_logMutex);
 
 #else // LINUX
 
-	pthread_attr_t thread_attr;
+  pthread_attr_t thread_attr;
 
-	pthread_attr_init( &thread_attr );
-	pthread_mutex_init( &m_logMutex, NULL );
+  pthread_attr_init(&thread_attr);
+  pthread_mutex_init(&m_logMutex, NULL);
 
-	if ( flags & 1 ) {
+  if (flags & 1) {
 
-		// Rewrite
-		if ( NULL != ( m_flog = fopen( szFile, "w" ) ) ) {
-			rv = true;
-		}
-	}
-	else {
-		// Append
-		if ( NULL != ( m_flog = fopen( szFile, "a" ) ) ) {
-			rv = true;
-		}
-	}
+    // Rewrite
+    if (NULL != (m_flog = fopen(szFile, "w"))) {
+      rv = true;
+    }
+  } else {
+    // Append
+    if (NULL != (m_flog = fopen(szFile, "a"))) {
+      rv = true;
+    }
+  }
 
-	// Start write thread
-	if ( rv ) {
+  // Start write thread
+  if (rv) {
 
-		// Create the log write thread.
-		if ( pthread_create( 	&m_threadId,
-										&thread_attr,
-										workThread,
-										this ) ) {
+    // Create the log write thread.
+    if (pthread_create(&m_threadId, &thread_attr, workThread, this)) {
 
-			syslog( LOG_CRIT, "canallogger: Unable to create logger thread.");
-			rv = false;
-			fclose( m_flog );
-		}
+      syslog(LOG_CRIT, "canallogger: Unable to create logger thread.");
+      rv = false;
+      fclose(m_flog);
+    }
+  }
 
-	}
-
-	// Release the mutex
-	pthread_mutex_unlock( &m_logMutex );
+  // Release the mutex
+  pthread_mutex_unlock(&m_logMutex);
 
 #endif
 
-	return rv;
+  return rv;
 }
 
 //////////////////////////////////////////////////////////////////////
 // close
 //
 
-void CLog::close( void )
-{
-	// Do nothing if already terminated
-	if ( !m_bRun ) return;
+void CLog::close(void) {
+  // Do nothing if already terminated
+  if (!m_bRun)
+    return;
 
-	m_bRun = false;
+  m_bRun = false;
 
-	UNLOCK_MUTEX( m_logMutex );
-	LOCK_MUTEX( m_logMutex );
+  UNLOCK_MUTEX(m_logMutex);
+  LOCK_MUTEX(m_logMutex);
 
-	// Give the worker thread some time to terminate
+  // Give the worker thread some time to terminate
 #ifdef WIN32
-	DWORD rv;
-	while ( true ) {
-		GetExitCodeThread( m_hTread, &rv );
-		if ( STILL_ACTIVE != rv ) break;
-	}
+  DWORD rv;
+  while (true) {
+    GetExitCodeThread(m_hTread, &rv);
+    if (STILL_ACTIVE != rv)
+      break;
+  }
 
-	CloseHandle( m_logMutex );
+  CloseHandle(m_logMutex);
 
-	m_logMutex = NULL;
-	fflush( m_flog );
-	fclose( m_flog );
+  m_logMutex = NULL;
+  fflush(m_flog);
+  fclose(m_flog);
 
 #else
-	int *trv;
-	pthread_join( m_threadId, (void **)&trv );
-	pthread_mutex_destroy( &m_logMutex );
+  int *trv;
+  pthread_join(m_threadId, (void **)&trv);
+  pthread_mutex_destroy(&m_logMutex);
 
-	fflush( m_flog );
-	fclose( m_flog );
+  fflush(m_flog);
+  fclose(m_flog);
 #endif
-
-
 }
 
 //////////////////////////////////////////////////////////////////////
 // writeMsg
 //
 
-bool CLog::writeMsg( canalMsg *pMsg )
-{
-	bool rv = false;
+bool CLog::writeMsg(canalMsg *pMsg) {
+  bool rv = false;
 
-	if ( NULL != pMsg ) {
+  if (NULL != pMsg) {
 
-		// Filter
-		if ( !doFilter( pMsg ) ) return true;
+    // Filter
+    if (!doFilter(pMsg))
+      return true;
 
-		// Must be room for the message
-		if ( m_logList.nCount < CANAL_LOG_LIST_MAX_MSG ) {
+    // Must be room for the message
+    if (m_logList.nCount < CANAL_LOG_LIST_MAX_MSG) {
 
-			dllnode *pNode = new dllnode;
+      dllnode *pNode = new dllnode;
 
-			if ( NULL != pNode ) {
+      if (NULL != pNode) {
 
-				canalMsg *pcanalMsg = new canalMsg;
+        canalMsg *pcanalMsg = new canalMsg;
 
-				pNode->pObject = pcanalMsg;
-				pNode->pKey = NULL;
-				pNode->pstrKey = NULL;
+        pNode->pObject = pcanalMsg;
+        pNode->pKey = NULL;
+        pNode->pstrKey = NULL;
 
-				if ( NULL != pcanalMsg ) {
-					memcpy( pcanalMsg, pMsg, sizeof( canalMsg ) );
-				}
+        if (NULL != pcanalMsg) {
+          memcpy(pcanalMsg, pMsg, sizeof(canalMsg));
+        }
 
-				LOCK_MUTEX( m_logMutex );
-				dll_addNode( &m_logList, pNode );
-				UNLOCK_MUTEX( m_logMutex );
+        LOCK_MUTEX(m_logMutex);
+        dll_addNode(&m_logList, pNode);
+        UNLOCK_MUTEX(m_logMutex);
 
-				rv = true;
+        rv = true;
 
-			}
-			else {
+      } else {
 
-				delete pMsg;
+        delete pMsg;
+      }
+    }
+  }
 
-			}
-		}
-	}
-
-	return rv;
+  return rv;
 }
-
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // getDataValue
 //
 
-unsigned long CLog::getDataValue( const char *szData )
-{
-        unsigned long val;
-        char *nstop;
+unsigned long CLog::getDataValue(const char *szData) {
+  unsigned long val;
+  char *nstop;
 
-        if ( ( NULL != strchr( szData, 'x' ) ) ||
-                        ( NULL != strchr( szData, 'X' ) ) ) {
-                val = strtoul( szData, &nstop, 16 );
-        }
-        else {
-                val = strtoul( szData, &nstop, 10 );
-        }
+  if ((NULL != strchr(szData, 'x')) || (NULL != strchr(szData, 'X'))) {
+    val = strtoul(szData, &nstop, 16);
+  } else {
+    val = strtoul(szData, &nstop, 10);
+  }
 
-        return val;
+  return val;
 }
-
-
 
 ///////////////////////////////////////////////////////////////////////////////
 // workThread
@@ -378,81 +346,76 @@ unsigned long CLog::getDataValue( const char *szData )
 //
 
 #ifdef WIN32
-void workThread( void *pObject )
+void workThread(void *pObject)
 #else
-void *workThread( void *pObject )
+void *workThread(void *pObject)
 #endif
 {
 #ifdef WIN32
-	DWORD errorCode = 0;
+  DWORD errorCode = 0;
 #else
-	int rv = 0;
+  int rv = 0;
 #endif
-	char buf[ 1024 ];
-	char smallbuf[ 32 ];
-	char tempbuf[ 32 ];
-	time_t ltime;
+  char buf[1024];
+  char smallbuf[32];
+  char tempbuf[32];
+  time_t ltime;
 
-	CLog * pobj = ( CLog *)pObject;
-	if ( NULL == pobj ) {
+  CLog *pobj = (CLog *)pObject;
+  if (NULL == pobj) {
 #ifdef WIN32
-		ExitThread( errorCode ); // Fail
+    ExitThread(errorCode); // Fail
 #else
-		pthread_exit( &rv );
+    pthread_exit(&rv);
 #endif
-	}
+  }
 
-	while ( pobj->m_bRun ) {
+  while (pobj->m_bRun) {
 
-		LOCK_MUTEX( pobj->m_logMutex );
+    LOCK_MUTEX(pobj->m_logMutex);
 
-		// Nothing to do if we should end...
-		if ( !pobj->m_bRun ) continue;
+    // Nothing to do if we should end...
+    if (!pobj->m_bRun)
+      continue;
 
-		// Is there something to transmit
-		while ( ( NULL != pobj->m_logList.pHead ) && ( NULL != pobj->m_logList.pHead->pObject ) ) {
+    // Is there something to transmit
+    while ((NULL != pobj->m_logList.pHead) &&
+           (NULL != pobj->m_logList.pHead->pObject)) {
 
-			canalMsg msg;
-			memcpy( &msg, pobj->m_logList.pHead->pObject, sizeof( canalMsg ) );
-			dll_removeNode( &pobj->m_logList, pobj->m_logList.pHead );
+      canalMsg msg;
+      memcpy(&msg, pobj->m_logList.pHead->pObject, sizeof(canalMsg));
+      dll_removeNode(&pobj->m_logList, pobj->m_logList.pHead);
 
-			// Get UNIX-style time and display as number and string.
-			time( &ltime );
-			strcpy( tempbuf, ctime( &ltime ) );
-			tempbuf[ strlen( tempbuf ) - 1 ] = 0;			// Remove /n
+      // Get UNIX-style time and display as number and string.
+      time(&ltime);
+      strcpy(tempbuf, ctime(&ltime));
+      tempbuf[strlen(tempbuf) - 1] = 0; // Remove /n
 
-			sprintf( buf, "%s - %08lX %08lX %08lX %02X ",
-							tempbuf,
-							msg.timestamp,
-							msg.flags,
-							msg.id,
-							msg.sizeData );
+      sprintf(buf, "%s - %08lX %08lX %08lX %02X ", tempbuf, msg.timestamp,
+              msg.flags, msg.id, msg.sizeData);
 
-			for ( int i=0; i < 8; i++ ) {
+      for (int i = 0; i < 8; i++) {
 
-				if ( i < msg.sizeData ) {
-					sprintf( smallbuf, "%02X ", msg.data[ i ] );
-					strcat( buf, smallbuf );
-				}
+        if (i < msg.sizeData) {
+          sprintf(smallbuf, "%02X ", msg.data[i]);
+          strcat(buf, smallbuf);
+        }
+      }
 
-			}
+      strcat(buf, "\n");
+      fprintf(pobj->m_flog, "%s", buf);
+      fflush(pobj->m_flog);
 
-			strcat( buf, "\n" );
-			fprintf( pobj->m_flog, "%s", buf );
-			fflush( pobj->m_flog );
+    } // while data
 
-		} // while data
+    UNLOCK_MUTEX(pobj->m_logMutex);
+    SLEEP(1);
 
-		UNLOCK_MUTEX( pobj->m_logMutex );
-		SLEEP( 1 );
-
-
-	} // while
+  } // while
 
 #ifdef WIN32
-	ExitThread( errorCode );
+  ExitThread(errorCode);
 #else
-	pthread_exit( &rv );
+  pthread_exit(&rv);
 #endif
-
 }

@@ -1,0 +1,189 @@
+{
+  "runasuser": "root",
+  "debug": 65535,
+  "guid": "25:ff:00:00:00:00:00:00:00:00:00:00:08:00:00:00",
+  "servername": "The VSCP daemon",
+  "classtypedb": "/var/lib/vscp/vscpd/vscp_events.sqlite3",
+  "maindb": "/var/lib/vscp/vscpd/vscp.sqlite3",
+  "discoverydb": "/var/lib/vscp/vscpd/vscp.sqlite3",
+  "vscpkey": "/etc/vscp/vscp.key",
+  "logging": {
+    "file-enable-log": true,
+    "file-log-level": "error",
+    "file-pattern": "[vscp: %c] [%^%l%$] %v",
+    "file-path": "/tmp/vscpd.log",
+    "file-max-size": 5242880,
+    "file-max-files": 7,
+    "console-enable-log": true,
+    "console-log-level": "debug",
+    "console-pattern": "[vscp: %c] [%^%l%$] %v"
+  },
+  "mqtt": {
+    "bind": "",
+    "host": "lynx",
+    "port": 1883,
+    "mqtt-options": {
+      "tcp-nodelay": true,
+      "protocol-version": 311,
+      "receive-maximum": 20,
+      "send-maximum": 20,
+      "ssl-ctx-with-defaults": 0,
+      "tls-ocsp-required": 0,
+      "tls-use-os-certs": 0
+    },
+    "user": "vscp",
+    "password": "secret",
+    "clientid": "",
+    "publish-format": "json",
+    "subscribe-format": "auto",
+    "qos": 1,
+    "bcleansession": false,
+    "bretain": false,
+    "keepalive": 60,
+    "bjsonmeasurementblock": true,
+    "topic-daemon-base": "vscp-daemon/{{guid}}/",
+    "topic-drivers": "drivers",
+    "topic-discovery": "discovery",
+    "reconnect": {
+      "delay": 2,
+      "delay-max": 10,
+      "exponential-backoff": false
+    },
+    "tls": {
+      "cafile": "",
+      "capath": "",
+      "certfile": "",
+      "keyfile": "",
+      "pwkeyfile": "",
+      "no-hostname-checking": true,
+      "cert-reqs": 0,
+      "version": "",
+      "ciphers": "",
+      "psk": "",
+      "psk-identity": ""
+    },
+    "will": {
+      "topic": "vscp-daemon/{{srvguid}}/will",
+      "qos": 1,
+      "retain": true,
+      "payload": "VSCP Daemon is down"
+    },
+    "subscribe": [
+      {
+        "topic": "vscp-daemon/{{srvguid}}/sub",
+        "qos": 0,
+        "v5-options": 0,
+        "format": "auto"
+      }
+    ],
+    "bescape-pub-topics": true,
+    "user-escapes": {
+      "escape1": "value1",
+      "escape2": "value2"
+    },
+    "publish": [
+      {
+        "topic": "vscp-daemon/{{srvguid}}",
+        "qos": 0,
+        "retain": false,
+        "format": "json"
+      }
+    ],
+    "v5": {
+      "user-properties": {
+        "prop1": "value",
+        "prop2": "value"
+      }
+    }
+  },
+  "drivers": {
+    "level1": [
+      {
+        "enable": true,
+        "name": "logger",
+        "config": "/tmp/canallog.txt",
+        "flags": 1,
+        "translation": 2,
+        "path": "/usr/local/src/VSCP/vscpl1drv-logger/linux/vscpl1drv-logger.so.1.1.1",
+        "guid": "25:00:00:00:00:00:00:00:00:00:00:00:08:01:00:00",
+        "mqtt": {
+          "bind": "",
+          "host": "lynx",
+          "port": 1883,
+          "mqtt-options": {
+            "tcp-nodelay": true,
+            "protocol-version": 311,
+            "receive-maximum": 20,
+            "send-maximum": 20,
+            "ssl-ctx-with-defaults": 0,
+            "tls-ocsp-required": 0,
+            "tls-use-os-certs": 0
+          },
+          "user": "vscp",
+          "password": "secret",
+          "clientid": "vscp-level1-logger-driver",
+          "publish-format": "json",
+          "subscribe-format": "auto",
+          "qos": 1,
+          "bcleansession": false,
+          "bretain": false,
+          "keepalive": 60,
+          "bjsonmeasurementblock": true,
+          "reconnect": {
+            "delay": 2,
+            "delay-max": 10,
+            "exponential-backoff": false
+          },
+          "tls": {
+            "cafile": "",
+            "capath": "",
+            "certfile": "",
+            "keyfile": "",
+            "pwkeyfile": "",
+            "no-hostname-checking": true,
+            "cert-reqs": 0,
+            "version": "",
+            "ciphers": "",
+            "psk": "",
+            "psk-identity": ""
+          },
+          "will": {
+            "topic": "vscp-daemon/{{srvguid}}/drivers/{{ifguid}}/will",
+            "qos": 1,
+            "retain": true,
+            "payload": "vscpl2drv-energy-p1 driver down"
+          },
+          "subscribe": [
+            {
+              "topic": "logger_sub",
+              "qos": 0,
+              "v5-options": 0,
+              "format": "auto"
+            }
+          ],
+          "bescape-pub-topics": true,
+          "user-escapes": {
+            "escape1": "valu1",
+            "escape2": "valu2"
+          },
+          "publish": [
+            {
+              "topic": "logger_pub",
+              "qos": 0,
+              "retain": false,
+              "format": "json"
+            }
+          ],
+          "v5": {
+            "user-properties": {
+              "prop1": "value",
+              "prop2": "value"
+            }
+          }
+        }
+      }      
+    ],
+    "level2": [
+    ]
+  }
+}
