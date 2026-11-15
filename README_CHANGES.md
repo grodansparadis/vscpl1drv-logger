@@ -7,6 +7,7 @@ tagged, rename **Unreleased** to the version and date, and start a new
 
 ## Unreleased
 
+- The vscp submodule (vscp) points to the latest vscp master (d75d4f5c6)
 - Updated debug files so usable with new VSCP daemon (55eb98f)
 - fix: docs Added autoreconf to build instructions (f0ba297)
 
